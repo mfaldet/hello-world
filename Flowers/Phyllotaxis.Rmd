@@ -1,0 +1,262 @@
+---
+title: "Phyllotaxis"
+author: "Mac Faldet"
+date: "February 12, 2019"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# This sets plot images to a nice size.
+options(repr.plot.width = 4, repr.plot.height = 4)
+```
+
+## 1. Patterns in nature
+
+The scientist does not study nature because it is useful; he studies it because he delights in it, and he delights in it because it is beautiful (Henri Poincaré)
+
+There are many examples of natural facts that can be described in mathematical terms. Nice examples are the shape of snowflakes, the fractal geometry of romanesco broccoli or how self-similarity rules the growth of plants.
+
+R is a tool for doing serious analysis, but not everything in life is serious. Life is also funny, and R can be used to have fun and to do beautiful things. Its graphical power can be used to produce artistic images like the one that illustrates this section, which is inspired by how plants arrange their leaves. This fact is called phyllotaxis and will serve as the basis of this project.
+
+In this notebook, we are using the ggplot2 package. Apart from having fun, we will learn many important features of it that will be useful not only to do art but also to represent data in real-life problems. Let's start by loading the library.
+
+```{r library}
+# Loading in the ggplot2 package
+library(ggplot2)
+
+```
+
+## 2. Warming up: drawing points on a circle
+There are many ways to represent data with ggplot2: from simple scatter plots to more complex ones, such as violin plots. The functions that start with geom_ define how the plot is shown. In this notebook, we will only work with geom_point which plots points in two dimensions. We just need a dataset with two variables, let's call them x and y.
+
+Let's start by drawing 50 points on a circle of radius 1. As every (x, y) point should be in the unit circle, it follows that x² + y² = 1. We can get this using the superfamous Pythagorean trigonometric identity which states that sin²(θ) + cos²(θ) = 1 for any real number θ.
+
+```{r}
+t <- seq(0, 2*pi, length.out = 50)
+x <- sin(t)
+y <- cos(t)
+df <- data.frame(t, x, y)
+
+# Make a scatter plot of points in a circle
+p <- ggplot(df, aes(x, y))
+p + geom_point() + coord_equal()
+```
+
+## 3. Make it harmonious with the Golden Angle
+Plants arrange their leaves in spirals. A spiral is a curve which starts from the origin and moves away from this point as it revolves around it. In the plot above all our points are at the same distance from the origin. A simple way to arrange them in a spiral is to multiply x and y by a factor which increases for each point. We could use t as that factor, as it meets these conditions, but we will do something more harmonious. We will use the Golden Angle:
+
+Golden Angle = π(3 − √5)
+
+This number is inspired by the Golden Ratio, one of the most famous numbers in the history of mathematics. Both the Golden Ratio and the Golden Angle appear in unexpected places in nature. Apart of flower petals and plant leaves, you'll find them in seed heads, pine cones, sunflower seeds, shells, spiral galaxies, hurricanes, etc.
+
+"And music!"
+
+It's time to spiralize!
+
+```{r golden angle}
+# Defining the number of points
+points <- 500
+
+# Defining the Golden Angle
+angle <- pi*(3 - sqrt(5))
+
+t <- (1:points) * angle
+x <- sin(t)
+y <-cos(t)
+df <- data.frame(t, x, y)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point() + coord_equal()
+```
+
+## 4. Remove everything unnecessary
+Apart from data, a plot includes many other components that define its final appearance. Our previous plot contains:
+
+a background filled with grey color.
+a grid of horizontal and vertical white lines in the background.
+ticks along the axis.
+a title on each axis.
+text along axes to label marks.
+Art does not get along with most of these elements, so it's time to move to action.
+
+```{r theme removal}
+df <- data.frame(t, x, y)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point() + coord_equal() +
+    theme(panel.grid = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          panel.background = element_rect(fill = "white"))
+```
+
+## 5. A bit of makeup: size, color and transparency
+Our drawing starts to look like a plant, but we can do it much better. By changing color, transparency (also called alpha), and size of the points, the image will become more appealing.
+
+```{r makeup}
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point(size = 8, alpha = .5, color = "darkgreen") + coord_equal() +
+    theme(panel.grid = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          panel.background = element_rect(fill = "white"))
+```
+
+## 6. Play with aesthetics: the dandelion
+Until now, all points have the same appearance (size, color, shape, and alpha). Sometimes you will want to make the appearance of the points dependent on a variable in your dataset. Now we will make size variable. We will also change the shape of points. Although we won't be able to blow on it, the resulting image should remind you of a dandelion.
+
+```{r dandelion}
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point(aes(size = t), shape = 8, alpha = .5, color = "black") + coord_equal() +
+    theme(panel.grid = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          panel.background = element_rect(fill = "white"),
+          legend.position = "none")
+```
+
+## 7. Put all it together: the sunflower
+Plants not only use the Golden Angle to arrange leaves. It is also found in the arrangement of sunflower seeds. We don't need anything new to draw a sunflower; we just need to combine some of the things we already know.
+
+```{r sunflower}
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point(aes(size = t), shape = 17, alpha = .5, color = "yellow") + coord_equal() +
+    theme(panel.grid = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          panel.background = element_rect(fill = "darkmagenta"),
+          legend.position = "none")
+```
+
+## 8. What if you modify the angle?
+These patterns are very sensitive to the angle between the points that form the spiral; small changes to the angle can generate very different images. Let's look at an example of that.
+
+Here we will change the angle from the golden angel (roughly 2.4) to 2.0
+```{r modified}
+angle <- 2.0
+points <- 1000
+
+t <- (1:points)*angle
+x <- sin(t)
+y <- cos(t)
+
+df <- data.frame(t, x, y)
+
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point(aes(size = t), shape = 17, alpha = .5, color = "yellow") + coord_equal() +
+    theme(panel.grid = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          panel.background = element_rect(fill = "darkmagenta"),
+          legend.position = "none")
+```
+
+## 9. All together now: imaginary flowers
+The techniques you've seen so far allows you to create an infinite number of patterns inspired by nature: the only limit is your imagination. But making art has also been a fun excuse to learn to use ggplot. All the tricks we have seen in this notebook are useful when plotting real data too.
+
+The image on the left is a simple variation of the previous flower and is in essence very similar to the first figure in which we plotted 50 points in a circle. I hope you've enjoyed the journey between that simple circle and this beautiful flower.
+
+```{r continue growing}
+angle <- 13 * pi/180
+points <- 2000
+
+t <- (1:points)*angle
+x <- sin(t)
+y <- cos(t)
+
+df <- data.frame(t, x, y)
+
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point(aes(size = t), shape = 1, alpha = .1, color = "magenta") + coord_equal() +
+    theme(panel.grid = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          panel.background = element_rect(fill = "white"),
+          legend.position = "none")
+```
+
+
+
+```{r}
+angle <- 13 * pi/180
+golden_angle <- pi*(3 - sqrt(5))
+points <- 360
+
+t <- (1:points)*angle
+x <- sin(t)
+y <- cos(t)
+seed <- data.frame(t, x, y)
+
+l <- (1:points)*golden_angle
+x <- -sin(t)
+y <- cos(t)
+flowers <- data.frame(t, x, y)
+
+df <-rbind(seed, flowers)
+
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point(aes(size = t), shape = 8, alpha = .5, color = "pink") +
+    geom_point(aes(size = t), shape = 1, alpha = .2, color = "yellow") +
+    coord_equal() +
+    theme(panel.grid = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          panel.background = element_rect(fill = "black"),
+          legend.position = "none")
+```
+
+```{r}
+angle <- 13 * pi/180
+golden_angle <- pi*(3 - sqrt(5))
+points <- 720
+
+t <- (1:points)*angle
+x <- sin(t)
+y <- cos(t)
+seed <- data.frame(t, x, y)
+
+l <- (180:points)*angle
+x <- -sin(t)
+y <- cos(t)
+flowers <- data.frame(t, x, y)
+
+df <-rbind(seed, flowers)
+
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point(aes(size = t), shape = 8, alpha = .3, color = "yellow") +
+    geom_point(aes(size = t), shape = 5, alpha = .6, color = "brown") +
+    coord_equal() +
+    theme(panel.grid = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          panel.background = element_rect(fill = "white"),
+          legend.position = "none")
+```
+
+```{r layering}
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point(size = 4, alpha = .5, color = "lightblue") + coord_equal() +
+    geom_point(size = 2, shape = 17, alpha = .4, color = "darkblue") + coord_equal() +
+    geom_point(size = 5, shape = 10, alpha = .2, color = "red") + coord_equal() +
+    theme(panel.grid = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          panel.background = element_rect(fill = "black"))
+```
+

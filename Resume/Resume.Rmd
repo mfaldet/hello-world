@@ -1,0 +1,81 @@
+---
+title: "Mac J. Faldet"
+author: mac13faldet@gmail.com           "(563)419-0634"             "[Weebly Page]"
+output: 
+output: 
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+##Education
+
+Loras College - Dubuque IA
+Business Analytics and Mathematics
+Cumulative GPA 3.533
+Graduation: May 2018
+
+DataCamp Certifications
+Data Scientist with R
+Quantitative Analyst with R
+Completed over 40 courses (over 200 hours of hands-on learning)
+
+
+##Honors and Involvement
+
+NICC Dean's List ('14-'15) [40 credits]
+Phi Theta Kappa international collegiate academic honors ('15)
+Loras College Dean's List ('15,'16,'17,'18)
+Some other greek collegiate academic honors ('18)
+
+Sigma Phi Epsilon Chapter Founding Father ('16)
+Loras College Swimming and Diving
+  MVP ('15-'16) 4 school records
+  8 DIII National Time Qualificaitons
+  Four-time All-Champsionship Team
+  Four-Time All-Academic Team
+  'Nationals All academic team'
+
+
+##Experience
+
+'timeline?'
+Heartland Financial USA - Data Analyst Intern in the Marketing Department [Jan '17 - present]
+
+
+Swimming Technique Camp [Aug 15th-17th '16]
+
+-Founded, marketed, organized, and administrated a new swim camp to help youth swim well and faster
+-Surpassed enrollment goals, acquired good media, and heard ample positive feedback
+-Lead counselors and campers through technique drills, specifications and training/race mentalities
+
+
+Calmar Area Swim Team - Coach ('12-'14) Head Coach ('15-'16)
+
+-Responsible for planning and attending every practice, event and meet 
+-As Head Coach, was trusted to coordinate meet dates, entries and awards with other teams 
+-Successfully improved team personnel over the years with over a dozen records broke in my time period of coaching
+-Redefined the time structure and mission our swim team to a more effective, joyous and positive organization
+
+
+Calmar Municipal Pool - Lifeguard ('11-'14) Head Guard ('15-'16) [May - August]
+
+-Fostered connections and worked closely with the community in events and lessons
+-Held accountable for patron safety and executing commands quickly and effectively 
+-As Head Guard, was trusted by the city council to complete managerial duties day-to-day
+-Commissioned to administrate and assisted all staff members regarding safety, concessions, admissions, and maintenance
+-Supervised lessons and coordinated with many adults
+-Planned, organized, and led on top of regular guard duties
+
+
+##Skills
+
+Communication: Thoroughly experienced in establishing and nurturing relations with ample clients and customers
+
+Leadership: Natural and tactful leader, have been appointed many lead or managerial roles throughout school and work
+
+Technology: Well versed in modern technology and have experience using My SQL (Microsoft SQL SMS), R (R Studio, R Markdown), C++ (Microsoft Visual Studio), Python (Anaconda), Online Research, Microsoft Office 2017
+
+Efficiency: Applied innovation and time management to projects and operations forgone to promote top rate efficiency
